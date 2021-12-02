@@ -3,6 +3,7 @@
 {% block title %} Your Review {% endblock %}
 
 {% block content %}
+    <h2><a href="{% url 'All-views' %}">All views </a></h2>
     <form action="/" method="POST">
         {% csrf_token %}
         {% for field in form %}
