@@ -6,6 +6,7 @@ from .forms import ReviewForm
 from django.views import View
 from django.views.generic.base import TemplateView
 from .models import Review
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 
@@ -55,22 +56,28 @@ class Thank_you(TemplateView): #this TemplateView is for rendering template with
 #     return render(requset, "reviews/thank_you.html" )
 
 
-class ReviewsListView(TemplateView):
+class ReviewsListView(ListView):
     template_name = "reviews/review_list.html"
+    model = Review # fetch all the data from model.
+    context_object_name = "reviews" #name the fetched object to use it in the template
 
-    def get_context_data(self, **kwargs): # this function is to bass data to the template.
-        context = super().get_context_data(**kwargs)
-        reviews = Review.objects.all()
-        context["reviews"] = reviews
-        return context
+    # def get_queryset(self): this function querey the model on spicific
+    #     base_query = super().get_queryset()
+    #     data = base_query.filter(rating__gt=4)
+    #     return data
 
 
-class ReviewDetailsView(TemplateView):
+
+class ReviewDetailsView(DetailView): # this function is to fetch a spicific data.
     template_name = "reviews/review_details.html"
+    model = Review
 
-    def get_context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        review_id = kwargs["id"] #get the id from the selcted review.
-        review = Review.objects.get(pk = review_id) #fetch the review from the database.
-        context["review"] = review 
-        return context
+
+
+
+    # def get_context_data(self,**kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     review_id = kwargs["id"] #get the id from the selcted review.
+    #     review = Review.objects.get(pk = review_id) #fetch the review from the database.
+    #     context["review"] = review 
+    #     return context
