@@ -10,7 +10,7 @@ from .models import Review
 #     review_text = forms.CharField(label="Your Feedback", widget=forms.Textarea, max_length=200)
 #     rating = forms.IntegerField(label="Your Rating", min_value=1, max_value=5)
 
-
+# there are two ways to create a forms on in the above where we define our standard form or create a from from a model as below
 class ReviewForm(forms.ModelForm): #create a from from an existing model
     class Meta:
         model = Review
