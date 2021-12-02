@@ -1,5 +1,6 @@
+
 from django import forms
-from django.forms import fields
+
 from .models import Review
 # class ReviewForm(forms.Form): # creat from from djanjo form
 #     user_name = forms.CharField(label="your name", max_length=100, error_messages={
@@ -13,6 +14,17 @@ from .models import Review
 class ReviewForm(forms.ModelForm): #create a from from an existing model
     class Meta:
         model = Review
-        # fields = ['user_name', 'review_text', 'rating'] # what filed showd be rendered
+        # fields = ['user_name', 'review_text', 'rating'] # what fields showd be rendered
         fields = '__all__'   #include all the fields
         # exclude = ['user_name'] # not include a fields.
+        labels = {
+            "user_name" : "Your Name",
+            "review_text" : "Your Feedback",
+            "rating" : "Your Rating"
+        }
+        error_messages = {
+            "user_name" : {
+                "required" : "Your name must not be empty",
+                "max_length" : "please enter a shorter name"
+            }
+        }

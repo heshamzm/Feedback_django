@@ -3,6 +3,6 @@ from . import views
 
 # add urls and path for each view
 urlpatterns = [
-    path("",views.review),
-    path("thank-you", views.thank_you)
+    path("",views.ReviewView.as_view()), #this is how to add class path
+    path("thank-you", views.thank_you) #this is how to add function path
 ]

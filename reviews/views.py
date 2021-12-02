@@ -1,26 +1,46 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import ReviewForm
-from reviews import forms
-from .models import Review
+from django.views import View
 
 # Create your views here.
-def review(request):
-    
-    if request.method == "POST":
-        form = ReviewForm(request.POST) # get the values of the inputs
 
-        if form.is_valid(): # check if the form is valid
-            review = Review(user_name = form.cleaned_data['user_name'], # save the inputs to the database. 
-                review_text = form.cleaned_data['review_text'], 
-                rating = form.cleaned_data['rating'])
-            review.save()
-            return HttpResponseRedirect("/thank-you")
-    else:
+class ReviewView(View):
+    def get(self, request):
         form = ReviewForm()
+
         return render(request, "reviews/review.html", {
             "form": form
-    })
+            })
+    def post(self, request):
+        
+        form = ReviewForm(request.POST) #instance = existing_model # get the values of the inputs/ the instance is for updating the data if using the from model.
+
+        if form.is_valid(): # check if the form is valid
+            form.save() # this is an easy way to save data into the database if using a model form.
+            return HttpResponseRedirect("/thank-you")
+
+        return render(request, "reviews/review.html", {
+            "form": form
+            })
+
+## !!! the class above is the same functionality as the function below, but without if statments.
+
+# def review(request):
+    
+#     if request.method == "POST":
+#         # existing_model = Review.objects.get(pk = 1)
+#         form = ReviewForm(request.POST) #instance = existing_model # get the values of the inputs/ the instance is for updating the data if using the from model.
+
+#         if form.is_valid(): # check if the form is valid
+#             form.save() # this is an easy way to save data into the database if using a model form.
+#             return HttpResponseRedirect("/thank-you")
+#     else:
+#         form = ReviewForm()
+
+#     return render(request, "reviews/review.html", {
+#             "form": form
+#     })
 
 
 def thank_you(requset):
