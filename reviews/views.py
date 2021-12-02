@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import ReviewForm
 from django.views import View
+from django.views.generic.base import TemplateView
 
 # Create your views here.
 
@@ -43,10 +44,9 @@ class ReviewView(View):
 #     })
 
 
-class Thank_you(View):
-    def get(self, request):
-        return render(request, "reviews/thank_you.html" )
+class Thank_you(TemplateView): #this TemplateView is for rendering template without calling the get method.
+    template_name = "reviews/thank_you.html"
+# !!!! the class above do the same functionality as the function below.
 
 # def thank_you(requset):
-
 #     return render(requset, "reviews/thank_you.html" )
