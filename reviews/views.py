@@ -43,6 +43,10 @@ class ReviewView(View):
 #     })
 
 
-def thank_you(requset):
+class Thank_you(View):
+    def get(self, request):
+        return render(request, "reviews/thank_you.html" )
 
-    return render(requset, "reviews/thank_you.html" )
+# def thank_you(requset):
+
+#     return render(requset, "reviews/thank_you.html" )
