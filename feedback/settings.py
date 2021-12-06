@@ -123,6 +123,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = BASE_DIR / "uploads" # define where the media should be stored.
 MEDIA_URL = "/user-media/" # this setting to access the image static file.
+# SESSION_COOKIE_AGE = 120 >>age of the cookie. default is 2 weeks
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
