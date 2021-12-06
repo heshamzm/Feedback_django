@@ -43,6 +43,6 @@ class CreateProfileView(CreateView):
 #         })
         
 class ProfilesView(ListView): # view the images from the path of the database.
-    template_name = "profiles/user_profile.html"
+    template_name = "profiles/user_profiles.html"
     model = UserProfile
     context_object_name = "profiles"
