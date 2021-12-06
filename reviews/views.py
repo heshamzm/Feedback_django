@@ -1,6 +1,6 @@
 from django import views
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.views import generic
 from django.views.generic.edit import FormView
 
@@ -87,7 +87,13 @@ class ReviewDetailsView(DetailView): # this function is to fetch a spicific data
     template_name = "reviews/review_details.html"
     model = Review
 
-
+    def get_context_data(self, **kwargs):          
+        context = super().get_context_data(**kwargs)
+        loaded_review = self.object
+        request = self.request
+        favorite_id = request.session.get("favorite_review")
+        context["is_favorite"] = favorite_id == str(loaded_review.id)
+        return context
 
 
     # def get_context_data(self,**kwargs):
@@ -98,9 +104,8 @@ class ReviewDetailsView(DetailView): # this function is to fetch a spicific data
     #     return context
 
 
-class AddFavoriteView(View):
+class AddFavoriteView(View): # add session
     def post(self, request):
         review_id = request.POST["review_id"]
-        fav_review = Review.objects.get(pk=review_id)
-        request.session["favorite_review "] = fav_review
-        return HttpResponseRedirect("/reviews/" + review_id)
+        request.session["favorite_review"] = review_id
+        return HttpResponseRedirect("/review/" + review_id)
